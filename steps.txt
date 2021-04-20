@@ -1,0 +1,64 @@
+#Create virtual enviornments
+python3 -m venv .env
+
+#Activate virtual enviornments 
+source .env/bin/activate
+
+#Using django framework and creation in current directory and . avoid extra folder
+django-admin startproject portfolio . 
+
+#run django
+python3 manage.py runserver
+
+#Create a django app project
+python3 manage.py startapp projects
+
+
+#Registered your app in settings.py
+INSTALLED_APPS = [
+    #django apps
+    #my apps
+    "projects",
+]
+
+#Dug your way through different URL Configurations
+
+https://127.0.0.1:8000/projects/              
+-> portfolio.urls  -- path('projects/', include('projects.urls')) 
+-> projects.urls   -- path('', views.project_list),
+-> view.py         -- def project_list(request):
+                        return render(request, 'projects/index.html')
+            
+
+#Registered your new template in settings.py 
+Templates = [
+    {
+         'DIRS': [Path.joinpath(BASE_DIR, 'projects/template')],
+    }
+]
+
+DJANGO ORM - OBJECT RELATIONAL MAPPER
+
+#Run before migration it will create migration file in projects/migrations directory
+python3 manage.py makemigration
+
+#It will migrate to db.sqllite3
+python3 manage.py migrate
+
+#to start django shell
+python3 manage.py shell
+
+#Insert record in database using python shell
+>>> from projects.models import Projects
+>>> p1 = Projects(title="django Project",description="This is a demo django project",technology="django",image="project1.png")
+>>> p1.save()
+>>> p2 = Projects(title="Frontend Project",description="This is a demo frontend project",technology="HTML",image="project2.jpeg")
+>>> p1.save()
+>>> p3 = Projects(title="Backend Project",description="This is a demo backend project",technology="NodeJS",image="project3.jpeg")
+>>> p1.save()
+>>> results = Projects.objects.all()
+>>> results
+<QuerySet [<Projects: Projects object (1)>, <Projects: Projects object (2)>, <Projects: Projects object (3)>]>
+>>> title = results[0].title
+>>> title
+'django Project'

@@ -1,0 +1,8 @@
+#ERRORS 
+
+PageNotFound
+ModuleNotFoundError
+ImproperlyConfigured
+AttributeError
+ValueError
+TemplateDoesNotExist
