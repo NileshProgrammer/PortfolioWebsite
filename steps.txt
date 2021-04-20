@@ -62,3 +62,46 @@ python3 manage.py shell
 >>> title = results[0].title
 >>> title
 'django Project'
+
+#Passed data to your template
+return render(request, 'projects/all_projects.html', {'projects': project})
+
+#Using Django Templating Syntax
+{% code logic %}
+-->{% for project in projects %}
+-->{% endfor %}
+
+{{ variables }}
+-->{{project.title}}
+
+#Passed data to template using ID
+project = Projects.objects.get(pk=id)
+
+
+#Creating link between pages
+->Give app name in url.py
+app_name = 'projects'   
+->Give link name and <int:pk> for passing argument
+path('<int:pk>', views.project_details , name ='project_details'),
+->use app name and link name to identify the view
+<a href="{% url 'projects:project_details' project.pk %}" class="btn btn-primary">READ MORE</a>
+
+
+#DRY - Don't Repeat Yourself
+#Template Interitance
+--> In Parent template
+{% block content %}
+{% endblock %}
+
+
+--> Im child Template
+{% extends 'base.html %}
+{% block content %}
+{% endblock %}
+
+
+#Create a superuser
+python3 manage.py createsuperuser
+
+#Register model in admin to add/edit/Delete
+admin.site.register(Projects)
